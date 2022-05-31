@@ -14,23 +14,14 @@ body {
 
 .display {
     color: green;
+    padding-bottom: 10px;
+    text-align: center;
     font-size: 40px;
 }
-
-.buttons {
+.calc-body{
     display: flex;
-    gap: 2px;
-    width: 250px;
-    flex: 1 0 auto;
-    flex-direction: row;
+    flex-direction: column;
 }
-.numbers{
-    width: 160px;
-}
-.operators {
-    width: 45px;
-}
-
 .num, .operator {
     flex: 1 0 auto;
     width: 50px;

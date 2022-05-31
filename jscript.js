@@ -1,40 +1,42 @@
+let buttons = document.querySelectorAll('.button');
+let display = document.querySelector('.display');
+let displayArray = [];
+let numArray = [];
+let operatorVariable = null;
 
-function add(num1, num2){
-    return num1 + num2;
+buttons.forEach(button => {
+    button.addEventListener('click', () => {
+        
+        //Checks if button text contains a number and if its not we know its an operator.
+        if (isNaN(button.textContent) === false) {
+            let rawNum = Number(button.textContent);
+            numArray.push(rawNum);
+            displayArray.push(rawNum);
+            setDisplay(); 
+            
+        }
+        
+        //Checking for every operator except for clear
+        else if (isNaN(button.textContent) === true && button.textContent != 'C') {
+             operatorVariable = button.textContent;
+         }
+        
+         else {
+             clearDisplay();
+         }
+         
+    });
+});
+
+function setDisplay() {
+    joinedArray = displayArray.join('');
+    display.textContent = joinedArray;
 }
 
-function subtract(num1, num2) {
-    return num1 - num2;
+function clearDisplay() {
+    while (displayArray.length > 0) {
+        displayArray.pop();
+    }
+    
+    display.textContent = '0';
 }
-
-function multiply(num1, num2) {
-    return num1 * num2;
-}
-
-function divide(num1, num2) {
-    return num1 / num2;
-}
-
-// function operate () {
-//     // let operator = prompt('Enter operator');
-//     // let num1 = prompt('Enter first number');
-//     // let num2 = prompt('Enter second number');
-
-//     if (operator == '+') {
-//         add(num1, num2);
-//     }
-
-//     else if (operator == '-') {
-//         subtract(num1, num2);
-//     }
-
-//     else if (operator == '*') {
-//         multiply(num1, num2);
-//     }
-
-//     else if (operator == '/') {
-//         divide(num1, num2);
-//     }
-// }
-
-// operate();
