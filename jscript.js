@@ -9,18 +9,27 @@ let storedOperator = '';
 numbers.forEach(button => {
     button.addEventListener('click', () => {
         displayNum += button.textContent;
-        setDisplay();
+        setDisplay(displayNum);
     });
 
 });
 
 operators.forEach(button => {
     button.addEventListener('click', () => {
-        storedOperator = button.textContent;
+        
+        if (button.textContent == 'C') {
+            displayNum = '';
+            firstNum = '';
+            secondNum = '';
+            storedOperator = '';
+            setDisplay();
+        }
+        
         
         if (firstNum == ''){
             firstNum += displayNum;
         }
+        
         else {
             secondNum += displayNum;
             firstNum = Number(firstNum);
@@ -28,14 +37,14 @@ operators.forEach(button => {
             console.log(operate(storedOperator, firstNum, secondNum));
         }
 
-
+        storedOperator = button.textContent;
         displayNum = '';
         
     });
 });
 
-function setDisplay() {
-    display.textContent = displayNum;
+function setDisplay(num = 0) {
+    display.textContent = num;
 }
 
 
@@ -60,21 +69,32 @@ function operate(operator, num1, num2) {
 
 function add(num1, num2) {
     secondNum = '';
+    storedOperator = '';
     firstNum = num1 + num2;
+    setDisplay(firstNum);
     return num1 + num2;
 }
 
 function subtract(num1, num2) {
+    secondNum = '';
+    storedOperator = '';
     firstNum = num1 - num2;
+    setDisplay(firstNum);
     return num1 - num2;
 }
 
 function multiply(num1, num2) {
+    secondNum = '';
+    storedOperator = '';
     firstNum = num1 * num2;
+    setDisplay(firstNum);
     return num1 * num2;
 }
 
 function divide (num1, num2) {
+    secondNum = '';
+    storedOperator = '';
     firstNum = num1 / num2;
+    setDisplay(firstNum);
     return num1 / num2;
 }
