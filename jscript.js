@@ -1,42 +1,80 @@
-let buttons = document.querySelectorAll('.button');
+let numbers = document.querySelectorAll('.num');
+let operators = document.querySelectorAll('.operator');
 let display = document.querySelector('.display');
-let displayArray = [];
-let numArray = [];
-let operatorVariable = null;
+let displayNum = '';
+let firstNum = '';
+let secondNum = '';
+let storedOperator = '';
 
-buttons.forEach(button => {
+numbers.forEach(button => {
     button.addEventListener('click', () => {
+        displayNum += button.textContent;
+        setDisplay();
+    });
+
+});
+
+operators.forEach(button => {
+    button.addEventListener('click', () => {
+        storedOperator = button.textContent;
         
-        //Checks if button text contains a number and if its not we know its an operator.
-        if (isNaN(button.textContent) === false) {
-            let rawNum = Number(button.textContent);
-            numArray.push(rawNum);
-            displayArray.push(rawNum);
-            setDisplay(); 
-            
+        if (firstNum == ''){
+            firstNum += displayNum;
         }
+        else {
+            secondNum += displayNum;
+            firstNum = Number(firstNum);
+            secondNum = Number(secondNum);
+            console.log(operate(storedOperator, firstNum, secondNum));
+        }
+
+
+        displayNum = '';
         
-        //Checking for every operator except for clear
-        else if (isNaN(button.textContent) === true && button.textContent != 'C') {
-             operatorVariable = button.textContent;
-         }
-        
-         else {
-             clearDisplay();
-         }
-         
     });
 });
 
 function setDisplay() {
-    joinedArray = displayArray.join('');
-    display.textContent = joinedArray;
+    display.textContent = displayNum;
 }
 
-function clearDisplay() {
-    while (displayArray.length > 0) {
-        displayArray.pop();
+
+function operate(operator, num1, num2) {
+    switch (operator) {
+        case '+':
+            return add(num1, num2);
+            break;
+        case '-' :
+            return subtract(num1, num2);
+            break;
+        case '*':
+            return multiply(num1, num2);
+            break;
+        case '/':
+            return divide(num1, num2);
+            break;
+        case '=':
+            break;
     }
-    
-    display.textContent = '0';
+}
+
+function add(num1, num2) {
+    secondNum = '';
+    firstNum = num1 + num2;
+    return num1 + num2;
+}
+
+function subtract(num1, num2) {
+    firstNum = num1 - num2;
+    return num1 - num2;
+}
+
+function multiply(num1, num2) {
+    firstNum = num1 * num2;
+    return num1 * num2;
+}
+
+function divide (num1, num2) {
+    firstNum = num1 / num2;
+    return num1 / num2;
 }
