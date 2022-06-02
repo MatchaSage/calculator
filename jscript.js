@@ -1,6 +1,7 @@
 let numbers = document.querySelectorAll('.num');
 let operators = document.querySelectorAll('.operator');
 let display = document.querySelector('.display');
+let equals = document.querySelector('.equal');
 let displayNum = '';
 let firstNum = '';
 let secondNum = '';
@@ -12,6 +13,12 @@ numbers.forEach(button => {
         setDisplay(displayNum);
     });
 
+});
+
+equals.addEventListener('click', () =>{
+    if (firstNum != '' && secondNum != '' && storedOperator != '') {
+        operate(storedOperator, firstNum, secondNum);
+    };
 });
 
 operators.forEach(button => {
@@ -26,7 +33,7 @@ operators.forEach(button => {
         }
         
         
-        if (firstNum == ''){
+        else if (firstNum == ''){
             firstNum += displayNum;
         }
         
@@ -34,7 +41,7 @@ operators.forEach(button => {
             secondNum += displayNum;
             firstNum = Number(firstNum);
             secondNum = Number(secondNum);
-            console.log(operate(storedOperator, firstNum, secondNum));
+            operate(storedOperator, firstNum, secondNum);
         }
 
         storedOperator = button.textContent;
@@ -43,10 +50,14 @@ operators.forEach(button => {
     });
 });
 
+function clearVars () {
+    secondNum = '';
+    storedOperator = '';
+}
+
 function setDisplay(num = 0) {
     display.textContent = num;
 }
-
 
 function operate(operator, num1, num2) {
     switch (operator) {
@@ -68,33 +79,36 @@ function operate(operator, num1, num2) {
 }
 
 function add(num1, num2) {
-    secondNum = '';
-    storedOperator = '';
+    clearVars();
     firstNum = num1 + num2;
     setDisplay(firstNum);
     return num1 + num2;
 }
 
 function subtract(num1, num2) {
-    secondNum = '';
-    storedOperator = '';
+    clearVars();
     firstNum = num1 - num2;
     setDisplay(firstNum);
     return num1 - num2;
 }
 
 function multiply(num1, num2) {
-    secondNum = '';
-    storedOperator = '';
+    clearVars();
     firstNum = num1 * num2;
     setDisplay(firstNum);
     return num1 * num2;
 }
 
 function divide (num1, num2) {
-    secondNum = '';
-    storedOperator = '';
-    firstNum = num1 / num2;
-    setDisplay(firstNum);
-    return num1 / num2;
+    if (num1 != 0 && num2 != 0) {
+        clearVars();
+        firstNum = num1 / num2;
+        setDisplay(firstNum);
+        return num1 / num2;
+
+    }
+    
+    else {
+        display.textContent = 'Illegal';   
+    }
 }
